@@ -7,3 +7,38 @@ def quicksort(seq):
     if len(seq) <= 1: return seq # Base case
     lo, pi, hi = partition(seq) # pi is in its place
     return quicksort(lo) + [pi] + quicksort(hi) # Sort lo and hi separately
+
+def quicksort2(seq):
+    less = []
+    equal = []
+    greater = []
+    if len(seq) <= 1:
+        return seq
+    for x in seq:
+        if x < seq[0]:
+            less.append(x)
+        elif x == seq[0]:
+            equal.append(x)
+        else:
+            greater.append(x)
+    return quicksort2(less) + equal + quicksort2(greater)
+
+def partition3(seq, low, high):
+    key = seq[low]
+    while low < high:
+        while low < high and seq[high] > key:
+            high -= 1
+        if low < high:
+            seq[low] = seq[high]
+        while low < high and seq[low] <= key:
+            low += 1
+        if low < high:
+            seq[high] = seq[low]
+    seq[low] = key
+    return low
+
+def quicksort3(seq, low, high):
+    if low < high:
+        mid = partition3(seq, low, high)
+        quicksort3(seq, low, mid)
+        quicksort3(seq, mid+1, high)
