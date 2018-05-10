@@ -40,5 +40,22 @@ def partition3(seq, low, high):
 def quicksort3(seq, low, high):
     if low < high:
         mid = partition3(seq, low, high)
-        quicksort3(seq, low, mid)
+        quicksort3(seq, low, mid-1)
         quicksort3(seq, mid+1, high)
+
+def partition4(seq, low, high):
+    i = low - 1
+    j = low
+    while j < high:
+        if seq[j] <= seq[high]:
+            i += 1
+            seq[i], seq[j] = seq[j], seq[i]
+        j += 1
+    seq[i+1], seq[high] = seq[high], seq[i+1]
+    return i+1
+
+def quicksort4(seq, low, high):
+    if low < high:
+        mid = partition4(seq, low, high)
+        quicksort4(seq, low, mid-1)
+        quicksort4(seq, mid+1, high)
